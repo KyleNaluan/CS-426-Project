@@ -231,7 +231,7 @@ public class PasswordCracker {
     FileWriter crackedPasswordFile;
 
     try {
-      crackedPasswordFile = new FileWriter(file);
+      crackedPasswordFile = new FileWriter(file, true);
       BufferedWriter writer = new BufferedWriter(crackedPasswordFile);
       writer.write("User " + userId + ": " + password);
       writer.newLine();
@@ -243,8 +243,16 @@ public class PasswordCracker {
 
   }
 
+  private void printResults() {
+		System.out.println("Cracked Passwords:");
+		for (Map.Entry<String, String> entry : crackedPasswords.entrySet()) {
+			System.out.println("User " + entry.getKey() + ": " + entry.getValue());
+		}
+	}
+
   public static void main(String[] args) {
     PasswordCracker cracker = new PasswordCracker("passwords.txt", "dictionary.txt");
     cracker.crackPasswords();
+    cracker.printResults();
   }
 }
